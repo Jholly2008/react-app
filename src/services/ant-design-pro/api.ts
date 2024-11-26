@@ -6,7 +6,7 @@ import { request } from '@umijs/max';
 export async function currentUser(options?: { [key: string]: any }) {
   return request<{
     data: API.CurrentUser;
-  }>('/api/currentUser', {
+  }>('/api/service-a/currentUser', {
     method: 'GET',
     ...(options || {}),
   });
@@ -14,7 +14,7 @@ export async function currentUser(options?: { [key: string]: any }) {
 
 /** 退出登录接口 POST /api/login/outLogin */
 export async function outLogin(options?: { [key: string]: any }) {
-  return request<Record<string, any>>('/api/login/outLogin', {
+  return request<Record<string, any>>('/api/service-a/login/outLogin', {
     method: 'POST',
     ...(options || {}),
   });
@@ -22,7 +22,7 @@ export async function outLogin(options?: { [key: string]: any }) {
 
 /** 登录接口 POST /api/login/account */
 export async function login(body: API.LoginParams, options?: { [key: string]: any }) {
-  return request<API.LoginResult>('/api/login/account', {
+  return request<API.LoginResult>('/api/service-a/login/account', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ export async function trace(
   },
   options?: { [key: string]: any },
 ) {
-  return request<API.TraceInfoList>('/api/trace', {
+  return request<API.TraceInfoList>('/api/service-a/trace', {
     method: 'GET',
     params: {
       ...params,

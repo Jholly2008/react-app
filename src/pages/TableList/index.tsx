@@ -11,78 +11,11 @@ import {
   ProTable,
 } from '@ant-design/pro-components';
 import { FormattedMessage, useIntl } from '@umijs/max';
-import { Button, Drawer, Input, message } from 'antd';
+import {Button, Drawer, Input, message, Tag} from 'antd';
 import React, { useRef, useState } from 'react';
+
 import type { FormValueType } from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
-
-/**
- * @en-US Add node
- * @zh-CN 添加节点
- * @param fields
- */
-const handleAdd = async (fields: API.TraceInfoItem) => {
-  const hide = message.loading('正在添加');
-  try {
-    await addRule({ ...fields });
-    hide();
-    message.success('Added successfully');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('Adding failed, please try again!');
-    return false;
-  }
-};
-
-/**
- * @en-US Update node
- * @zh-CN 更新节点
- *
- * @param fields
- */
-const handleUpdate = async (fields: FormValueType) => {
-  const hide = message.loading('Configuring');
-  try {
-    await updateRule({
-      name: fields.name,
-      desc: fields.desc,
-      key: fields.key,
-    });
-    hide();
-
-    message.success('Configuration is successful');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('Configuration failed, please try again!');
-    return false;
-  }
-};
-
-/**
- *  Delete node
- * @zh-CN 删除节点
- *
- * @param selectedRows
- */
-const handleRemove = async (selectedRows: API.TraceInfoItem[]) => {
-  const hide = message.loading('正在删除');
-  if (!selectedRows) return true;
-  try {
-    await removeRule({
-      key: selectedRows.map((row) => row.spanId),
-    });
-    hide();
-    message.success('Deleted successfully and will refresh soon');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('Delete failed, please try again');
-    return false;
-  }
-};
-
 const TableList: React.FC = () => {
   /**
    * @en-US Pop-up window of new window
@@ -100,6 +33,8 @@ const TableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<API.TraceInfoItem>();
   const [selectedRowsState, setSelectedRows] = useState<API.TraceInfoItem[]>([]);
+
+  const VERSION = 'v1.0.0';
 
   /**
    * @en-US International configuration
@@ -176,7 +111,11 @@ const TableList: React.FC = () => {
   ];
 
   return (
-    <PageContainer>
+    <PageContainer extra={[
+      <Tag key="version" color="blue">
+        Version: {VERSION}
+      </Tag>
+    ]}>
       <ProTable<API.TraceInfoItem, API.PageParams>
         headerTitle={intl.formatMessage({
           id: 'pages.searchTable.title',
