@@ -129,7 +129,11 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
 const authHeaderInterceptor = (url: string, options: RequestConfig) => {
   // 从 localStorage 中获取 token
   const token = localStorage.getItem('token');
-  const authHeader = token ? { Authorization: `${token}` } : {Authorization: `12345`};
+  const frontendVersion = localStorage.getItem('frontendVersion');
+  const authHeader = {
+    Authorization: token ? token : '',
+    'x-frontend-version': frontendVersion || ''
+  };
 
   return {
     url: `${url}`,

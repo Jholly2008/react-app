@@ -130,6 +130,12 @@ const Login: React.FC = () => {
         } else {
           console.error('登录响应中没有找到 userId 或 token');
         }
+        const frontendVersion = msg.frontendVersion;
+        if (frontendVersion) {
+          localStorage.setItem('frontendVersion', frontendVersion);
+        } else {
+          console.error('登录响应中没有找到 frontendVersion');
+        }
 
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
