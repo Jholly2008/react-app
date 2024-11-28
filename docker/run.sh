@@ -5,16 +5,10 @@ DOCKER_IMAGE_NAME="kkk2099/kkk:react-1.0"
 CONTAINER_NAME="frontend-react"
 HOST_PORT=11000
 CONTAINER_PORT=80
+DEFAULT_GATEWAY="http://10.40.41.193:10000"
 
-# 检查是否提供了网关地址参数
-if [ -z "$1" ]; then
-    echo "请提供网关地址!"
-    echo "使用方式: ./run.sh <网关地址>"
-    echo "例如: ./run.sh http://gateway-service.default.svc.cluster.local"
-    exit 1
-fi
-
-GATEWAY_URL=$1
+# 使用提供的参数或默认网关地址
+GATEWAY_URL=${1:-$DEFAULT_GATEWAY}
 echo "使用网关地址: ${GATEWAY_URL}"
 
 echo "开始部署前端容器..."
