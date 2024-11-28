@@ -133,6 +133,7 @@ const Login: React.FC = () => {
         const frontendVersion = msg.frontendVersion;
         if (frontendVersion) {
           localStorage.setItem('frontendVersion', frontendVersion);
+          document.cookie = `x-frontend-version=${frontendVersion}; path=/`;
         } else {
           console.error('登录响应中没有找到 frontendVersion');
         }
