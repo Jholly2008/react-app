@@ -34,7 +34,7 @@ const TableList: React.FC = () => {
   const [currentRow, setCurrentRow] = useState<API.TraceInfoItem>();
   const [selectedRowsState, setSelectedRows] = useState<API.TraceInfoItem[]>([]);
 
-  const VERSION = 'v1.0.0';
+  const VERSION = 'v2.0.0';
 
   /**
    * @en-US International configuration
